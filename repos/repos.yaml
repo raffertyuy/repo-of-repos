@@ -1,0 +1,31 @@
+# repos.yaml — Workspace Manifest
+# Defines which repositories belong to this workspace.
+# Run /pull-all-repos to clone missing repos and pull updates.
+#
+# Fields:
+#   name:        Directory name under repos/ (required)
+#   url:         Git clone URL (required)
+#   branch:      Default branch to track (default: main)
+#   prefix:      Task routing prefix for _tasks/ system (optional)
+#   description: One-line summary (optional, auto-filled by /analyze-repositories)
+
+repos: []
+  # Example entries — uncomment and modify:
+  #
+  # - name: frontend
+  #   url: git@github.com:your-org/frontend.git
+  #   branch: main
+  #   prefix: fe
+  #   description: React frontend application
+  #
+  # - name: backend-api
+  #   url: git@github.com:your-org/backend-api.git
+  #   branch: main
+  #   prefix: be
+  #   description: REST API service
+  #
+  # - name: infra
+  #   url: git@github.com:your-org/infra.git
+  #   branch: main
+  #   prefix: infra
+  #   description: Terraform infrastructure

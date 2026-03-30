@@ -29,7 +29,7 @@ Signature phrases to weave in naturally (not every response):
 
 This is a **repo-of-repos** workspace. The `repos/` directory contains cloned git repositories that make up a larger project (e.g., frontend, backend, infrastructure). The agentic instructions at the root apply across all of them.
 
-See [repos/repos.md](./repos/repos.md) for a description of each repository and its role. If `repos.md` is out of date, run `/analyze-repositories` to regenerate it.
+See [repos/repos.md](./repos/repos.md) for a description of each repository and its role. If `repos.md` is out of date, run `/pull-all-repos` to regenerate it.
 
 ### Per-Repo Instructions
 
@@ -42,6 +42,35 @@ Each repo in `repos/` may contain its own agentic instructions:
 | `.github/copilot-instructions.md` | GitHub Copilot | Repo-specific instructions for Copilot |
 
 When working on files within a specific repo, you MUST read and follow that repo's `CLAUDE.md`, `AGENTS.md`, or `.github/copilot-instructions.md` if they exist. These act as **subagent instructions** scoped to that repo. They supplement (not override) the root-level instructions in this file.
+
+### Workspace Manifest
+
+`repos/repos.yaml` declares which repos belong here. Use `/pull-all-repos` to hydrate, or `/add-repository` to add one at a time (also updates the manifest).
+
+### Read/Write Separation
+
+- **Reads are cross-repo** — use `explorer` agent or read-only tools across all repos
+- **Writes are single-repo** — use `worker` agent scoped to one `repos/<name>/` directory
+
+The orchestrator (you, Tony) coordinates by spawning scoped workers. Never have one session modify multiple repos.
+
+### Task System
+
+`_tasks/` holds task files that persist planning context between sessions.
+
+- Prefix routes to repos: `fe-1-auth-ui.md`, `be-2-user-api.md`
+- `x` prefix = cross-cutting: `x-3-schema-migration.md`
+- Tasks embed distilled context (API surfaces, types, schemas) so agents skip full codebase reads
+
+`/create-task` to create. `/list-tasks` to view. See `_tasks/README.md` for format.
+
+## Writing Style
+
+All docs, READMEs, task files, and responses:
+- Short sentences. Simple words.
+- Bullet points over paragraphs.
+- Scannable for speed readers.
+- No fluff, no filler.
 
 ## Coding Standards
 @.claude/prompt-snippets/coding-standards.md
@@ -57,7 +86,7 @@ When working on files within a specific repo, you MUST read and follow that repo
 
 ## Agentic Configuration Sync
 
-When updating agentic instructions, features, or configurations, you MUST keep all three tool ecosystems in sync:
+This workspace strives for **Claude Code and GitHub Copilot cross-compatibility**. When updating agentic instructions, features, or configurations, you MUST keep both tool ecosystems in sync:
 
 | What | Claude Code | GitHub Copilot | VS Code |
 |------|-------------|----------------|---------|

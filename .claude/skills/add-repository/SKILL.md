@@ -22,7 +22,19 @@ Steps:
    - Briefly look at the top-level directory structure
    - Check which agent instruction files exist: `CLAUDE.md`, `AGENTS.md`, `.github/copilot-instructions.md`
 
-3. **Update** `repos/repos.md` by appending a new section for the repo in this format:
+3. **Update `repos/repos.yaml`** by adding an entry for the new repo:
+
+   ```yaml
+   - name: <repo-name>
+     url: <git remote URL>
+     branch: <current branch>
+     prefix: <short prefix, inferred from repo name — e.g., "fe" for frontend, "be" for backend>
+     description: <1-line summary>
+   ```
+
+   If `repos/repos.yaml` has an empty list (`repos: []`), replace it with the new entry. Otherwise append to the list. Infer a sensible `prefix` from the repo name (first 2-4 characters or a natural abbreviation). If unsure, ask the user.
+
+4. **Update** `repos/repos.md` by appending a new section for the repo in this format:
 
    ```markdown
    ## <repo-name>
