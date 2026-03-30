@@ -1,0 +1,5 @@
+# Local overrides (not committed)
+.claude/settings.local.json
+
+# Cloned repos inside repos/ (each is its own git repo)
+repos/*/
