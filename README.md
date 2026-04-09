@@ -1,5 +1,7 @@
 # repo-of-repos
 
+> **Based on [raffertyuy/repo-of-repos](https://github.com/raffertyuy/repo-of-repos).** This is an implementation of that upstream template. Periodically run `/sync-template` to pick up improvements.
+
 A starter template for working with **multiple git repos and local source folders as a single AI-powered workspace**.
 
 ## The Problem
@@ -32,12 +34,14 @@ This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyre
 │   │   └── frontend.md               # Auto-applied frontend rules
 │   ├── skills/                        # Slash commands (see below)
 │   │   ├── add-repository/
+│   │   ├── clean-repos/
 │   │   ├── commit/
 │   │   ├── commit-all-repos/
 │   │   ├── create-task/
 │   │   ├── list-tasks/
 │   │   ├── pr-all-repos/
 │   │   ├── pull-all-repos/
+│   │   ├── remove-repository/
 │   │   ├── sync-template/
 │   │   └── update-all-md-docs/
 │   └── prompt-snippets/               # Shared instructions
@@ -188,6 +192,8 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 | `/pull-all-repos` | Clone/pull git repos, verify local folders, auto-register orphans, regenerate `repos.md` |
 | `/add-repository <url>` | Clone a git repo into `repos/` and register it |
 | `/add-repository --local <name>` | Create/register a local source folder in `repos/` |
+| `/remove-repository <name>` | Remove a repo/folder from config (optionally delete from disk) |
+| `/clean-repos` | Find and remove stale entries whose directories no longer exist |
 
 ### Git
 
@@ -209,12 +215,6 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 | Command | What it does |
 |---------|-------------|
 | `/update-all-md-docs` | Sync all markdown files with current state |
-
-### Template
-
-| Command | What it does |
-|---------|-------------|
-| `/sync-template` | Pull latest template updates from upstream without overwriting project-specific content |
 
 ## Agents
 
