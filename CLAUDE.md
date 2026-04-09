@@ -27,13 +27,16 @@ Signature phrases to weave in naturally (not every response):
 
 ## Project Structure
 
-This is a **repo-of-repos** workspace. The `repos/` directory contains cloned git repositories that make up a larger project (e.g., frontend, backend, infrastructure). The agentic instructions at the root apply across all of them.
+This is a **repo-of-repos** workspace. The `repos/` directory contains **git repositories** and **local source folders** that make up a larger project (e.g., frontend, backend, infrastructure, shared config). The agentic instructions at the root apply across all of them.
 
-See [repos/repos.md](./repos/repos.md) for a description of each repository and its role. If `repos.md` is out of date, run `/pull-all-repos` to regenerate it.
+- **Git repos** — cloned from remotes, gitignored, each keeps its own git history
+- **Local folders** — source code without its own git repo, tracked by the root repo
+
+See [repos/repos.md](./repos/repos.md) for a description of each entry and its role. If `repos.md` is out of date, run `/pull-all-repos` to regenerate it.
 
 ### Per-Repo Instructions
 
-Each repo in `repos/` may contain its own agentic instructions:
+Each repo or folder in `repos/` may contain its own agentic instructions:
 
 | File | Tool | Purpose |
 | --- | --- | --- |
@@ -41,11 +44,22 @@ Each repo in `repos/` may contain its own agentic instructions:
 | `AGENTS.md` | Claude Code / Copilot | Repo-specific instructions for AI agents |
 | `.github/copilot-instructions.md` | GitHub Copilot | Repo-specific instructions for Copilot |
 
-When working on files within a specific repo, you MUST read and follow that repo's `CLAUDE.md`, `AGENTS.md`, or `.github/copilot-instructions.md` if they exist. These act as **subagent instructions** scoped to that repo. They supplement (not override) the root-level instructions in this file.
+When working on files within a specific repo or folder, you MUST read and follow that entry's `CLAUDE.md`, `AGENTS.md`, or `.github/copilot-instructions.md` if they exist. These act as **subagent instructions** scoped to that entry. They supplement (not override) the root-level instructions in this file.
 
 ### Workspace Manifest
 
-`repos/repos.yaml` declares which repos belong here. Use `/pull-all-repos` to hydrate, or `/add-repository` to add one at a time (also updates the manifest).
+`repos/repos.yaml` declares which repos and local folders belong here. Each entry has a `type` field: `git` (default) or `local`. Use `/pull-all-repos` to hydrate, or `/add-repository` to add one at a time (also updates the manifest).
+
+### Git vs Local Entries
+
+| | Git repos | Local folders |
+|---|---|---|
+| **Has own `.git`** | Yes | No |
+| **Tracked by root repo** | No (gitignored) | Yes |
+| **Cloned/pulled by `/pull-all-repos`** | Yes | Verified/created only |
+| **Committed by `/commit-all-repos`** | Yes (per sub-repo) | Via root `/commit` |
+| **PRs via `/pr-all-repos`** | Yes | Skipped |
+| **`repos.yaml` `url` field** | Required | Not used |
 
 ### Read/Write Separation
 

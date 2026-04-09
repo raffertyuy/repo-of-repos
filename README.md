@@ -1,6 +1,6 @@
 # repo-of-repos
 
-A starter template for working with **multiple git repos as a single AI-powered workspace**.
+A starter template for working with **multiple git repos and local source folders as a single AI-powered workspace**.
 
 ## The Problem
 
@@ -8,7 +8,7 @@ Real projects span many repos. AI tools work best when they see everything in on
 
 ## The Solution
 
-Clone repos into `repos/`. Root-level agentic configs provide cross-repo context. Each repo stays independent (own git history, CI, deploys). Your AI gets the full picture.
+Clone repos into `repos/`. Put local source code there too. Root-level agentic configs provide cross-repo context. Git repos stay independent (own git history, CI, deploys). Local folders are tracked by the root repo. Your AI gets the full picture.
 
 This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyrepo Synthesis." This template packages the best ideas into a ready-to-use workspace.
 
@@ -51,11 +51,12 @@ This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyre
 ├── _tasks/                            # Task files with prefix routing
 │   └── README.md
 ├── repos/
-│   ├── repos.yaml                     # Workspace manifest — declares all repos
-│   ├── repos.md                       # Auto-generated repo descriptions
-│   ├── frontend/                      # (cloned, gitignored)
-│   ├── backend-api/                   # (cloned, gitignored)
-│   └── infra/                         # (cloned, gitignored)
+│   ├── repos.yaml                     # Workspace manifest — declares all entries
+│   ├── repos.md                       # Auto-generated descriptions
+│   ├── frontend/                      # (git repo — cloned, gitignored)
+│   ├── backend-api/                   # (git repo — cloned, gitignored)
+│   ├── infra/                         # (git repo — cloned, gitignored)
+│   └── shared-config/                 # (local folder — tracked by root repo)
 └── .gitignore
 ```
 
@@ -65,7 +66,19 @@ This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyre
 
 Click "Use this template" on GitHub, or clone directly.
 
-### 2. Add Your Repos
+### 2. Add Your Code
+
+The `repos/` directory supports two types of entries:
+
+| | Git repos | Local folders |
+|---|---|---|
+| **Has own `.git`** | Yes | No |
+| **Tracked by root repo** | No (gitignored) | Yes |
+| **Cloned/pulled by `/pull-all-repos`** | Yes | Verified/created |
+| **Committed by `/commit-all-repos`** | Per sub-repo | Via root `/commit` |
+| **PRs via `/pr-all-repos`** | Yes | Skipped |
+
+#### Adding git repos
 
 **Option A: Manifest** (recommended)
 
@@ -92,6 +105,49 @@ Run `/pull-all-repos` to clone everything.
 
 `/add-repository <url>` — clones, analyzes, updates `repos/repos.yaml` and `repos/repos.md`.
 
+#### Adding local source folders
+
+For source code that doesn't belong to any git repo — scripts, shared config, scratch projects, prototypes, etc.
+
+**Option A: Slash command**
+
+```
+/add-repository --local shared-config
+```
+
+This will:
+1. Create `repos/shared-config/` if it doesn't exist
+2. Add a `type: local` entry to `repos/repos.yaml`
+3. Update `repos/repos.md` with a description
+4. Ensure the folder is NOT in `.gitignore` (so the root repo tracks it)
+
+Then add your source files into `repos/shared-config/`.
+
+**Option B: Manifest**
+
+Add a `type: local` entry to `repos/repos.yaml`:
+
+```yaml
+repos:
+  - name: shared-config
+    type: local
+    prefix: cfg
+    description: Shared configuration and scripts
+```
+
+Run `/pull-all-repos` — it will create the directory if missing and register it.
+
+Then add your source files into `repos/shared-config/`.
+
+**Option C: Manual**
+
+1. Create the folder: `mkdir repos/my-project`
+2. Add your source files
+3. Add an entry to `repos/repos.yaml` with `type: local`
+4. Run `/pull-all-repos` to regenerate `repos/repos.md`
+
+> **How it works**: Git repos get explicit `.gitignore` entries so the root repo ignores them. Local folders have no such entry, so they're tracked and committed with the root repo via `/commit`.
+
 ### 3. Customize
 
 - `CLAUDE.md` — add project context, architecture notes, data flows
@@ -110,8 +166,9 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 
 | Command | What it does |
 |---------|-------------|
-| `/pull-all-repos` | Clone missing repos, pull existing, detect orphans, regenerate `repos.md` |
-| `/add-repository <url>` | Clone one repo, analyze it, update `repos/repos.yaml` and `repos.md` |
+| `/pull-all-repos` | Clone/pull git repos, verify local folders, auto-register orphans, regenerate `repos.md` |
+| `/add-repository <url>` | Clone a git repo into `repos/` and register it |
+| `/add-repository --local <name>` | Create/register a local source folder in `repos/` |
 
 ### Git
 
@@ -177,20 +234,30 @@ See `_tasks/README.md` for the full format.
 
 ### Workspace Manifest (repos.yaml)
 
-Declarative source of truth for which repos belong here. Lives at `repos/repos.yaml`.
+Declarative source of truth for which repos and local folders belong here. Lives at `repos/repos.yaml`.
 
 ```yaml
 repos:
+  # Git repo (cloned, gitignored)
   - name: frontend          # Directory under repos/
-    url: git@...             # Clone URL
-    branch: main             # Branch to track
+    url: git@...             # Clone URL (required for git)
+    branch: main             # Branch to track (git only)
     prefix: fe               # Task routing prefix
     description: React app   # Summary
+
+  # Local source folder (tracked by root repo)
+  - name: shared-config     # Directory under repos/
+    type: local              # No git, no clone
+    prefix: cfg              # Task routing prefix
+    description: Shared config and scripts
 ```
 
+- `type` — `git` (default) or `local`
+- `url` — required for git, omitted for local
+- `branch` — git only (default: `main`)
+- `prefix` — connects to task routing
 - `/pull-all-repos` — hydrate from manifest
 - `/add-repository` — add one + update manifest
-- `prefix` — connects to task routing
 
 ### Cross-Repo PR Linking
 

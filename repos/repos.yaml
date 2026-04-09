@@ -1,17 +1,19 @@
 # repos.yaml — Workspace Manifest
-# Defines which repositories belong to this workspace.
-# Run /pull-all-repos to clone missing repos and pull updates.
+# Defines which repositories and local source folders belong to this workspace.
+# Run /pull-all-repos to clone/pull git repos and register local folders.
 #
 # Fields:
 #   name:        Directory name under repos/ (required)
-#   url:         Git clone URL (required)
-#   branch:      Default branch to track (default: main)
+#   type:        "git" (default) or "local"
+#   url:         Git clone URL (required for type: git)
+#   branch:      Default branch to track (default: main, git only)
 #   prefix:      Task routing prefix for _tasks/ system (optional)
-#   description: One-line summary (optional, auto-filled by /analyze-repositories)
+#   description: One-line summary (optional, auto-filled by /pull-all-repos)
 
 repos: []
   # Example entries — uncomment and modify:
   #
+  # Git repo (cloned, gitignored, has its own git history):
   # - name: frontend
   #   url: git@github.com:your-org/frontend.git
   #   branch: main
@@ -24,8 +26,8 @@ repos: []
   #   prefix: be
   #   description: REST API service
   #
-  # - name: infra
-  #   url: git@github.com:your-org/infra.git
-  #   branch: main
-  #   prefix: infra
-  #   description: Terraform infrastructure
+  # Local source folder (tracked by root repo, no git):
+  # - name: shared-config
+  #   type: local
+  #   prefix: cfg
+  #   description: Shared configuration and scripts

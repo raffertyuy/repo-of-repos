@@ -21,9 +21,9 @@ The user provides a description of the work to be done. For example:
 
 Based on the user's description, determine which repos are involved:
 
-1. Read `repos/repos.yaml` to get the list of repos and their prefixes
-2. If the work is clearly scoped to one repo, use that repo's prefix
-3. If the work spans multiple repos, use the `x` (cross-cutting) prefix
+1. Read `repos/repos.yaml` to get the list of repos/folders and their prefixes (both `type: git` and `type: local` entries are valid scopes)
+2. If the work is clearly scoped to one repo or folder, use that entry's prefix
+3. If the work spans multiple repos/folders, use the `x` (cross-cutting) prefix
 4. Ask the user to clarify scope only if it's genuinely ambiguous
 
 ### 2. Assign a Number

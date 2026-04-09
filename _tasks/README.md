@@ -8,7 +8,7 @@ Format: `<prefix>-<number>-<slug>.md`
 
 | Prefix | Scope | Example |
 |--------|-------|---------|
-| Repo prefix (from `repos/repos.yaml`) | Single repo | `fe-1-auth-ui.md`, `be-2-user-api.md` |
+| Entry prefix (from `repos/repos.yaml`) | Single repo or folder | `fe-1-auth-ui.md`, `cfg-2-env-vars.md` |
 | `x` | Cross-cutting | `x-3-auth-flow.md` |
 
 ## Task File Format

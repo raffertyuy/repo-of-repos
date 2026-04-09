@@ -15,7 +15,9 @@ Iterate through every sub-repo in `repos/` and commit changes in each one indivi
 
 ## For Each Sub-Repo
 
-For each repo under `repos/<name>/`:
+For each directory under `repos/<name>/` that is a **git repository** (has a `.git` directory):
+
+> **Note**: Skip `type: local` entries from `repos/repos.yaml` — local source folders have no git history of their own. Their changes are committed via the root repo's `/commit` skill.
 
 1. `cd` into the repo directory
 2. Run `git status` (never use `-uall`) — if no changes, skip it
