@@ -26,7 +26,7 @@ Read `repos/repos.yaml` from the project root. Each entry has:
 - `type` (optional, default: `git`) — `"git"` or `"local"`
 - `url` (required for git, ignored for local) — git clone URL
 - `branch` (optional, default: `main`, git only) — branch to track
-- `prefix` (optional) — task routing prefix for `_tasks/` system
+- `prefix` (optional) — plan routing prefix for `_plans/` system
 - `description` (optional) — one-line summary
 
 If `repos/repos.yaml` has an empty list (`repos: []`), inform the user and suggest adding entries or using `/add-repository`.

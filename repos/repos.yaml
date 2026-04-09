@@ -8,7 +8,7 @@
 #   url:         Git clone URL (required for type: git)
 #   branch:      Default branch to track (default: main, git only)
 #   gitignore:   For local folders only — true to gitignore, false/omitted to track (default)
-#   prefix:      Task routing prefix for _tasks/ system (optional)
+#   prefix:      Plan routing prefix for _plans/ system (optional)
 #   description: One-line summary (optional, auto-filled by /pull-all-repos)
 
 repos: []

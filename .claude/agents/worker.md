@@ -24,10 +24,10 @@ When you are given a task, you will be told which repo to work in (e.g., `repos/
 
 ## Task Context
 
-You may receive a task file from `_tasks/` that contains:
+You may receive a plan file from `_plans/` that contains:
 - Background and constraints
 - Key decisions already made
-- Important files to focus on
+- Step-by-step tasks with files and pseudocode
 - Embedded context from other repos (API surfaces, types, schemas)
 
 Use this context to inform your work, but only modify files within your scoped repo.

@@ -69,15 +69,18 @@ When working on files within a specific repo or folder, you MUST read and follow
 
 The orchestrator (you, Tony) coordinates by spawning scoped workers. Never have one session modify multiple repos.
 
-### Task System
+### Plan System
 
-`_tasks/` holds task files that persist planning context between sessions.
+`_plans/` holds implementation plans that drive the plan-implement workflow.
 
-- Prefix routes to repos: `fe-1-auth-ui.md`, `be-2-user-api.md`
-- `x` prefix = cross-cutting: `x-3-schema-migration.md`
-- Tasks embed distilled context (API surfaces, types, schemas) so agents skip full codebase reads
+- `/plan` — create a plan with steps, context, and pseudocode
+- `/implement` — execute the plan, check off steps, run tests, document fixes
+- Prefix routes to repos: `fe-1-auth-ui.plan.md`, `be-2-user-api.plan.md`
+- `x` prefix = cross-cutting: `x-3-schema-migration.plan.md`
+- Plans embed distilled context (API surfaces, types, schemas) so agents skip full codebase reads
+- Plans are living documents — `/implement` updates them with checkmarks, notes, and fixes as it works
 
-`/create-task` to create. `/list-tasks` to view. See `_tasks/README.md` for format.
+See `_plans/README.md` for format.
 
 ## Writing Style
 

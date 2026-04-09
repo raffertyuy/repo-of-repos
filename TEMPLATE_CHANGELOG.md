@@ -2,6 +2,31 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.5.0
+
+### Plan-implement workflow, README restructure, docs/ folder
+
+Replaced the task system (`_tasks/`, `/create-task`, `/list-tasks`) with a two-phase plan-implement workflow inspired by the [Plan-Implement-Run pattern](https://raffertyuy.com/raztype/vibe-coding-plan-implement-run/).
+
+- **`/plan`**: new skill — creates implementation plans in `_plans/` with steps, repo context, and pseudocode. Uses markdown task lists (`- [ ]`) for trackable progress.
+- **`/implement`**: new skill — executes a plan, checks off steps (`- [x]`), runs tests, documents fixes and discoveries. Status auto-flows `draft` → `in-progress` → `completed`.
+- **`_plans/`**: replaces `_tasks/`. Plans are living documents that record what was planned AND what actually happened.
+- **`_plans/README.md`**: plan file format, status lifecycle, and how `/implement` updates plans.
+- **`docs/`**: new folder — extracted detailed reference material from README to keep it lean.
+  - `docs/adding-repos.md` — all options for adding git repos and local folders
+  - `docs/workspace-manifest.md` — full `repos.yaml` field reference
+  - `docs/cross-tool-sync.md` — Claude Code + Copilot sync rules
+- **`README.md`**: restructured for junior developers. New flow: What → Setup → Use → Explore. Plan-implement workflow is now the featured usage section with walkthrough examples. Detailed reference material moved to `docs/`.
+- **`CLAUDE.md`**: "Task System" section replaced with "Plan System".
+- **`.claude/agents/worker.md`**: references `_plans/` instead of `_tasks/`.
+- **`.claude/skills/sync-template/SKILL.md`**: updated section lists to match new README structure. Added `docs/*.md` to safe-copy files.
+- **`.claude/skills/pull-all-repos/SKILL.md`**: prefix comment updated.
+- **`repos/repos.yaml`**: header comment updated.
+
+**Removed**: `/create-task`, `/list-tasks` skills and `_tasks/` directory.
+
+**Migration note**: Delete `_tasks/` and its contents (or rename any active tasks to the new `_plans/` format manually). The new plan format uses `status: draft | in-progress | completed` in frontmatter and `- [ ]` / `- [x]` checkboxes for step tracking.
+
 ## 0.4.0
 
 ### Optional gitignore for local folders, versioning rules

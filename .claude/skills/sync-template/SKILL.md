@@ -70,7 +70,8 @@ These are framework files with no project-specific content. Copy them directly f
 | `.claude/rules/*.md` | Auto-applied rules |
 | `.github/agents/*.md` | Copilot agent mirrors |
 | `.github/instructions/*.instructions.md` | Copilot instruction mirrors |
-| `_tasks/README.md` | Task system docs |
+| `_plans/README.md` | Plan system docs |
+| `docs/*.md` | Reference documentation |
 
 **New files**: If the upstream has new skills, agents, rules, or prompt snippets that don't exist locally, create them (including any new directories).
 
@@ -104,7 +105,7 @@ CLAUDE.md is the most complex merge target. Live projects customize it heavily �
 - Workspace Manifest (the `repos.yaml` description paragraph)
 - Git vs Local Entries (comparison table)
 - Read/Write Separation
-- Task System
+- Plan System
 - Prompt Snippets (the explanation paragraph)
 - Agentic Configuration Sync (table + rules)
 - Self-Improvement
@@ -155,11 +156,12 @@ README.md is the public face of the project. Live projects replace the template 
 
 **Template-owned sections** (replace with upstream):
 
-- Key Concepts > Read/Write Separation
-- Key Concepts > Task System
-- Key Concepts > Workspace Manifest (repos.yaml)
-- Cross-Repo PR Linking
-- Cross-Tool Sync (Claude Code + GitHub Copilot)
+- Plan-Implement Workflow
+- Slash Commands (tables)
+- Agents (table + read/write separation explanation)
+- MCP Servers
+- Keeping Up to Date
+- Further Reading
 - Customization
 - Prior Art & Inspiration
 - License
@@ -167,19 +169,18 @@ README.md is the public face of the project. Live projects replace the template 
 **Template-seeded sections that projects commonly customize** (three-way merge):
 
 - **Project title and description** — The very top of the README. Projects replace the template name, description, and "The Problem / The Solution" with their own. **Always preserve the local version.** If the upstream added an "upstream template link" line and the local doesn't have it, suggest adding it but don't force it.
-- **Project Structure (tree)** — Projects add their own repos, remove example entries, add non-repo directories. Preserve the local tree structure. Only update the **template framework entries** (`.claude/`, `.github/`, `_tasks/`, etc.) if the upstream added new files or directories to those paths. Never remove project-specific tree entries.
+- **Project Structure (tree)** — Projects add their own repos, remove example entries, add non-repo directories. Preserve the local tree structure. Only update the **template framework entries** (`.claude/`, `.github/`, `_plans/`, `docs/`, etc.) if the upstream added new files or directories to those paths. Never remove project-specific tree entries.
 - **Getting Started** — Projects may simplify or customize setup steps. Preserve local modifications. Update only if the upstream changed core workflow (e.g., new required step, changed command syntax).
-- **Skills (Slash Commands)** — The table of available skills. **Regenerate from upstream** but preserve any project-specific skills the local version added. Check: if the local table has a skill not in the upstream, keep it. If upstream added a new skill, add it.
-- **Agents** — Same strategy as Skills — merge tables, preserve local additions.
+- **Slash Commands** — The tables of available commands. **Regenerate from upstream** but preserve any project-specific skills the local version added. Check: if the local table has a skill not in the upstream, keep it. If upstream added a new skill, add it.
+- **Agents** — Same strategy as Slash Commands — merge table, preserve local additions.
 - **MCP Servers** — Preserve the local table (projects add their own servers). Only add new entries from upstream if the template introduced a new default MCP server.
-- **Keeping Up to Date** — Template-owned, replace with upstream.
 
 **Detecting intentionally removed sections:**
 
 If a template section exists in the upstream but NOT in the local README, the project likely removed it intentionally. **Do NOT re-add it.** Instead, note it in the sync report:
 
 ```
-| Key Concepts > Workspace Manifest | Skipped (not present locally — likely intentionally removed) |
+| Further Reading | Skipped (not present locally — likely intentionally removed) |
 ```
 
 If unsure whether removal was intentional, ask the user before re-adding.
@@ -237,7 +238,7 @@ Write the upstream version string to the local `TEMPLATE_VERSION` file.
 ## Notes
 
 - **Never delete local files** unless they're template-owned and were removed upstream (and even then, warn first)
-- **Never touch** `repos/repos.md`, `repos/*/`, `_tasks/*.md` (actual tasks), `.claude/settings*.json`, `.mcp.json`, `.vscode/mcp.json`
+- **Never touch** `repos/repos.md`, `repos/*/`, `_plans/*.plan.md` (actual plans), `.claude/settings*.json`, `.mcp.json`, `.vscode/mcp.json`
 - **Always preserve** project-specific content in mixed files — when in doubt, keep both
 - If the merge is ambiguous, show both versions to the user and ask which to keep
 - The changelog is your guide — read it before merging to understand intent, not just diffs
