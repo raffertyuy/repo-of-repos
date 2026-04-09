@@ -2,6 +2,8 @@
 
 > **Based on [raffertyuy/repo-of-repos](https://github.com/raffertyuy/repo-of-repos).** This is an implementation of that upstream template. Periodically run `/sync-template` to pick up improvements.
 
+**Meet Tony Stark** — the AI agent that runs this workspace. Call him **Tony**, **Mr. Stark**, or just **T**. Why Tony Stark? Because like the real deal, he works on multiple projects at the same time — wiring services, orchestrating repos, and delegating to subagents without breaking a sweat. One workspace, many repos, one genius coordinating it all.
+
 A starter template for working with **multiple git repos and local source folders as a single AI-powered workspace**.
 
 ## The Problem
