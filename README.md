@@ -17,6 +17,8 @@ This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyre
 ```
 .
 ├── CLAUDE.md                          # Root instructions for Claude Code
+├── TEMPLATE_VERSION                   # Current template version
+├── CHANGELOG.md                       # Template changelog
 ├── .mcp.json                          # MCP servers (Claude Code)
 ├── .vscode/
 │   └── mcp.json                       # MCP servers (VS Code / Copilot)
@@ -36,6 +38,7 @@ This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyre
 │   │   ├── list-tasks/
 │   │   ├── pr-all-repos/
 │   │   ├── pull-all-repos/
+│   │   ├── sync-template/
 │   │   └── update-all-md-docs/
 │   └── prompt-snippets/               # Shared instructions
 │       ├── coding-standards.md
@@ -158,6 +161,22 @@ Then add your source files into `repos/shared-config/`.
 
 Use slash commands below. The AI sees all repos and how they relate.
 
+## Keeping Up to Date
+
+This template evolves — new skills, improved agents, better docs. To pull the latest changes into your workspace:
+
+```
+/sync-template
+```
+
+This will:
+1. Check your `TEMPLATE_VERSION` against the upstream
+2. Copy updated framework files (skills, agents, prompt snippets, rules)
+3. Smart-merge files that mix template and project content (`CLAUDE.md`, `README.md`, `.gitignore`)
+4. Never touch your repos, tasks, settings, or MCP config
+
+Check `CHANGELOG.md` to see what's new in each version. The skill reads it too — so it knows *why* things changed, not just *what* changed, and can merge intelligently.
+
 ## Skills (Slash Commands)
 
 Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
@@ -190,6 +209,12 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 | Command | What it does |
 |---------|-------------|
 | `/update-all-md-docs` | Sync all markdown files with current state |
+
+### Template
+
+| Command | What it does |
+|---------|-------------|
+| `/sync-template` | Pull latest template updates from upstream without overwriting project-specific content |
 
 ## Agents
 
