@@ -2,6 +2,19 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.5.1
+
+### Simpler plan filenames
+
+- **Plan naming**: changed from `<prefix>-<number>-<slug>.plan.md` to `YYYYMMDD-<plan-name>.plan.md`. Date prefix replaces sequential numbering and repo prefix routing.
+- **`/plan`**: updated to use new naming format. Removed "Determine Scope" prefix logic and "Assign a Number" step.
+- **`/implement`**: updated example filenames.
+- **`_plans/README.md`**: updated naming format and examples.
+- **`repos/repos.yaml`**: `prefix` field description simplified (no longer tied to plan routing).
+- **Docs and references**: updated across `CLAUDE.md`, `README.md`, `docs/workspace-manifest.md`, and skill files.
+
+**Migration note**: Existing plans with the old naming format (`fe-1-*.plan.md`) still work — `/implement` resolves by matching the plan name, not the prefix. No rename needed.
+
 ## 0.5.0
 
 ### Plan-implement workflow, README restructure, docs/ folder

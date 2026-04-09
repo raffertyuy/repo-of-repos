@@ -238,7 +238,7 @@ Write the upstream version string to the local `TEMPLATE_VERSION` file.
 ## Notes
 
 - **Never delete local files** unless they're template-owned and were removed upstream (and even then, warn first)
-- **Never touch** `repos/repos.md`, `repos/*/`, `_plans/*.plan.md` (actual plans), `.claude/settings*.json`, `.mcp.json`, `.vscode/mcp.json`
+- **Never touch** `repos/repos.md`, `repos/*/`, `_plans/*.plan.md` (user plans), `.claude/settings*.json`, `.mcp.json`, `.vscode/mcp.json`
 - **Always preserve** project-specific content in mixed files — when in doubt, keep both
 - If the merge is ambiguous, show both versions to the user and ask which to keep
 - The changelog is your guide — read it before merging to understand intent, not just diffs

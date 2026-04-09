@@ -73,7 +73,7 @@ This creates a plan file in `_plans/` with:
 - **Steps** as markdown checkboxes (`- [ ]`) with pseudocode
 - **File references** so the implementing agent knows where to work
 
-Example output: `_plans/x-1-google-oauth.plan.md`
+Example output: `_plans/20260409-google-oauth.plan.md`
 
 ```markdown
 ---
@@ -105,7 +105,7 @@ Review the plan. Adjust steps if needed. This is your chance to catch issues bef
 ### Step 2: Implement
 
 ```
-/implement x-1-google-oauth
+/implement google-oauth
 ```
 
 This executes the plan:
@@ -274,7 +274,7 @@ This template builds on ideas from the community:
 | Read/write separation (explorer + worker agents) | [ttal](https://dev.to/neil_agentic/how-i-manage-15-repos-with-claude-code-without-losing-my-mind-2ood) — neil_agentic's read/write split across 15+ repos |
 | Workspace manifest (`repos.yaml`) | [Virtual Monorepo](https://medium.com/devops-ai/the-virtual-monorepo-pattern-how-i-gave-claude-code-full-system-context-across-35-repos-43b310c97db8) — Owen Zanzal's `.repos` clone script; [Superblocks](https://www.superblocks.com/blog/a-single-dev-workspace-for-ai-agents) `repos.yaml` manifest |
 | Cross-repo PR linking (`/pr-all-repos`) | [Superblocks](https://www.superblocks.com/blog/a-single-dev-workspace-for-ai-agents) — `just pr` with sibling PR URL injection |
-| Prefix routing in plans | [Spine Pattern](https://tsoporan.com/blog/spine-pattern-multi-repo-ai-development/) — Titus Soporan's prefix-based task scoping |
+| Repo-scoped planning | [Spine Pattern](https://tsoporan.com/blog/spine-pattern-multi-repo-ai-development/) — Titus Soporan's prefix-based task scoping |
 | Context distillation in plans | [Context from Internal Repos](https://elite-ai-assisted-coding.dev/p/context-from-internal-git-repos) — CI/CD-driven context extraction |
 | Cross-tool sync (Claude + Copilot) | [Claude + Copilot Cross-Compatibility](https://raffertyuy.com/raztype/claude-copilot-xcompatibility/) — keeping both tools in sync |
 

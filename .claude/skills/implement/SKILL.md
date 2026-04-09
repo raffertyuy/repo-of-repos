@@ -13,8 +13,8 @@ This skill combines the "implement" and "run" phases into one — you build it, 
 ## Arguments
 
 The user provides the plan file to implement. For example:
-- `/implement _plans/fe-1-auth-ui.plan.md`
-- `/implement fe-1-auth-ui` (shorthand — resolve to the matching file in `_plans/`)
+- `/implement _plans/20260409-auth-ui.plan.md`
+- `/implement auth-ui` (shorthand — resolve to the matching `.plan.md` file in `_plans/`)
 - `/implement` (no argument — if only one plan has `status: draft` or `status: in-progress`, use that)
 
 ## Steps

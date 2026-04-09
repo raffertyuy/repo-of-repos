@@ -10,7 +10,7 @@ repos:
   - name: frontend          # Directory under repos/ (required)
     url: git@...             # Clone URL (required for git)
     branch: main             # Branch to track (default: main)
-    prefix: fe               # Plan routing prefix (optional)
+    prefix: fe               # Short prefix (optional)
     description: React app   # One-line summary (optional)
 
   # Local source folder (tracked by root repo)
@@ -36,7 +36,7 @@ repos:
 | `url` | Git only | — | Git | Clone URL |
 | `branch` | No | `main` | Git | Branch to track |
 | `gitignore` | No | `false` | Local | `true` to gitignore the folder |
-| `prefix` | No | — | Both | Plan routing prefix for `_plans/` |
+| `prefix` | No | — | Both | Short prefix for the repo (used in references) |
 | `description` | No | — | Both | One-line summary (auto-filled by `/pull-all-repos`) |
 
 ## Commands

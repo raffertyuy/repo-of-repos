@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Create an implementation plan in _plans/ with prefix routing, embedded repo context, and step-by-step task lists
+description: Create an implementation plan in _plans/ with embedded repo context and step-by-step task lists
 user-invocable: true
 ---
 
@@ -21,25 +21,21 @@ The user provides a description of the work to be done. For example:
 
 Based on the user's description, determine which repos are involved:
 
-1. Read `repos/repos.yaml` to get the list of repos/folders and their prefixes
-2. If the work is clearly scoped to one repo or folder, use that entry's prefix
-3. If the work spans multiple repos/folders, use the `x` (cross-cutting) prefix
-4. Ask the user to clarify scope only if it's genuinely ambiguous
+1. Read `repos/repos.yaml` to get the list of repos/folders
+2. Identify which repos are relevant to the work
+3. Ask the user to clarify scope only if it's genuinely ambiguous
 
-### 2. Assign a Number
+### 2. Generate the Filename
 
-Look at existing files in `_plans/` to find the next available number. Numbers are global (not per-prefix):
-- If `_plans/` has `fe-1-auth-ui.plan.md` and `x-2-schema-update.plan.md`, the next number is `3`
-- If `_plans/` is empty (only README.md), start at `1`
+Format: `YYYYMMDD-<plan-name>.plan.md`
 
-### 3. Generate a Slug
+- Use today's date as the prefix (e.g., `20260409`)
+- Create a short, descriptive plan name from the description:
+  - Lowercase, hyphen-separated
+  - 2-4 words maximum
+  - Example: "Add Google OAuth to login" -> `20260409-google-oauth.plan.md`
 
-Create a short, descriptive slug from the description:
-- Lowercase, hyphen-separated
-- 2-4 words maximum
-- Example: "Add Google OAuth to login" -> `google-oauth`
-
-### 4. Gather Context
+### 3. Gather Context
 
 Use the explorer agent pattern (read-only) to gather relevant context from the repos in scope:
 
@@ -51,9 +47,9 @@ Use the explorer agent pattern (read-only) to gather relevant context from the r
    - Any existing tests for the affected code
 3. Distill this into compact summaries — don't paste entire files
 
-### 5. Write the Plan File
+### 4. Write the Plan File
 
-Create `_plans/<prefix>-<number>-<slug>.plan.md` with this structure:
+Create `_plans/YYYYMMDD-<plan-name>.plan.md` with this structure:
 
 ```markdown
 ---
@@ -96,7 +92,7 @@ created: <today's date>
   - **Files**: <test files>
 ```
 
-### 6. Plan Quality Checklist
+### 5. Plan Quality Checklist
 
 Before finishing, verify the plan:
 - [ ] Steps are ordered by dependency (do X before Y if Y depends on X)
@@ -106,7 +102,7 @@ Before finishing, verify the plan:
 - [ ] A validation step exists at the end
 - [ ] Any user intervention points are called out
 
-### 7. Report
+### 6. Report
 
 Tell the user:
 - The plan file path

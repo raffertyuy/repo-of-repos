@@ -75,8 +75,7 @@ The orchestrator (you, Tony) coordinates by spawning scoped workers. Never have 
 
 - `/plan` — create a plan with steps, context, and pseudocode
 - `/implement` — execute the plan, check off steps, run tests, document fixes
-- Prefix routes to repos: `fe-1-auth-ui.plan.md`, `be-2-user-api.plan.md`
-- `x` prefix = cross-cutting: `x-3-schema-migration.plan.md`
+- Filenames use date prefix: `YYYYMMDD-<plan-name>.plan.md`
 - Plans embed distilled context (API surfaces, types, schemas) so agents skip full codebase reads
 - Plans are living documents — `/implement` updates them with checkmarks, notes, and fixes as it works
 

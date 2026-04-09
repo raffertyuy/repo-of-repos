@@ -9,15 +9,11 @@ Plan files drive the plan-implement workflow. Each plan scopes work to specific 
 
 ## File Naming
 
-Format: `<prefix>-<number>-<slug>.plan.md`
+Format: `YYYYMMDD-<plan-name>.plan.md`
 
-| Prefix | Scope | Example |
-|--------|-------|---------|
-| Entry prefix (from `repos/repos.yaml`) | Single repo or folder | `fe-1-auth-ui.plan.md` |
-| `x` | Cross-cutting | `x-3-auth-flow.plan.md` |
-
-- Numbers are global across all plans (not per-prefix)
-- Slugs are 2-4 words, lowercase, hyphen-separated
+- Date prefix is today's date (e.g., `20260409`)
+- Plan name is 2-4 words, lowercase, hyphen-separated
+- Examples: `20260409-google-oauth.plan.md`, `20260410-schema-migration.plan.md`
 
 ## Plan File Format
 
