@@ -82,10 +82,12 @@ List directories in `repos/` and compare against `repos/repos.yaml` entries. For
      ```
 
 3. **For local orphans**:
+   - Ask the user: **"Should `repos/<name>/` be tracked by git, or gitignored?"**
    - Add to `repos/repos.yaml`:
      ```yaml
      - name: <name>
        type: local
+       gitignore: <true|false based on user's answer>
        prefix: <inferred from name>
        description: <1-line summary from analysis>
      ```
@@ -105,8 +107,11 @@ Do NOT delete any directories. Registration is additive only.
 After processing all entries, ensure the root `.gitignore` is correct:
 
 1. Read the current `.gitignore`
-2. For each **git** entry, ensure `repos/<name>/` is listed in `.gitignore` (add if missing)
-3. For each **local** entry, ensure `repos/<name>/` is NOT in `.gitignore` (remove if present)
+2. For each **git** entry, ensure `repos/<name>/` is listed in `.gitignore` (add if missing) — git repos are always gitignored
+3. For each **local** entry, check the `gitignore` field in `repos/repos.yaml`:
+   - If `gitignore: true` → ensure `repos/<name>/` IS in `.gitignore`
+   - If `gitignore: false` (or unset) → ensure `repos/<name>/` is NOT in `.gitignore`
+   - If the entry has no `gitignore` field and the directory was just registered as an orphan, the user was already asked in the orphan detection step — use their answer
 4. Keep the header comments intact. Add new entries below the header block.
 
 ## Regenerate repos.md

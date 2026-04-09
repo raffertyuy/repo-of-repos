@@ -48,18 +48,19 @@ When working on files within a specific repo or folder, you MUST read and follow
 
 ### Workspace Manifest
 
-`repos/repos.yaml` declares which repos and local folders belong here. Each entry has a `type` field: `git` (default) or `local`. Use `/pull-all-repos` to hydrate, or `/add-repository` to add one at a time (also updates the manifest).
+`repos/repos.yaml` declares which repos and local folders belong here. Each entry has a `type` field: `git` (default) or `local`. Local folders also support a `gitignore` field (`true` to ignore, `false`/omitted to track). Use `/pull-all-repos` to hydrate, or `/add-repository` to add one at a time (also updates the manifest).
 
 ### Git vs Local Entries
 
 | | Git repos | Local folders |
 |---|---|---|
 | **Has own `.git`** | Yes | No |
-| **Tracked by root repo** | No (gitignored) | Yes |
+| **Tracked by root repo** | No (always gitignored) | By default yes; optionally gitignored (`gitignore: true` in yaml) |
 | **Cloned/pulled by `/pull-all-repos`** | Yes | Verified/created only |
-| **Committed by `/commit-all-repos`** | Yes (per sub-repo) | Via root `/commit` |
+| **Committed by `/commit-all-repos`** | Yes (per sub-repo) | Via root `/commit` (if tracked) |
 | **PRs via `/pr-all-repos`** | Yes | Skipped |
 | **`repos.yaml` `url` field** | Required | Not used |
+| **`repos.yaml` `gitignore` field** | Not used (always `true`) | Optional — `true` to ignore, `false`/omitted to track |
 
 ### Read/Write Separation
 
@@ -121,6 +122,22 @@ This workspace strives for **Claude Code and GitHub Copilot cross-compatibility*
 3. **Always check both files** before making changes — don't assume they're already in sync.
 
 4. **Test after syncing** — verify the MCP server or configuration works in the target tool if possible.
+
+## Versioning & Changelog
+
+This workspace is a **versioned template**. Two files track its version:
+
+- **`TEMPLATE_VERSION`** — single-line semver string (e.g., `0.3.1`)
+- **`CHANGELOG.md`** — human-readable record of what changed per version
+
+1. **When making changes** — update `CHANGELOG.md` with what changed and why. Add entries under the current version heading (create a new heading if bumping). Keep entries concise and grouped by topic.
+2. **Before pushing to remote** — bump `TEMPLATE_VERSION` first. Append the new version string to match the latest `CHANGELOG.md` heading. Never push without an updated version if the changelog has new entries.
+
+### Version Bumping Guide
+
+- **Patch** (0.3.x → 0.3.y): bug fixes, doc tweaks, minor skill updates
+- **Minor** (0.x.0 → 0.y.0): new skills, new agents, new framework features
+- **Major** (x.0.0 → y.0.0): breaking changes to workspace structure or manifest format
 
 ## Self-Improvement
 

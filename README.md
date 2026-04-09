@@ -128,7 +128,7 @@ This will:
 1. Create `repos/shared-config/` if it doesn't exist
 2. Add a `type: local` entry to `repos/repos.yaml`
 3. Update `repos/repos.md` with a description
-4. Ensure the folder is NOT in `.gitignore` (so the root repo tracks it)
+4. Ask whether the folder should be **tracked by git** (default) or **gitignored**
 
 Then add your source files into `repos/shared-config/`.
 
@@ -155,7 +155,7 @@ Then add your source files into `repos/shared-config/`.
 3. Add an entry to `repos/repos.yaml` with `type: local`
 4. Run `/pull-all-repos` to regenerate `repos/repos.md`
 
-> **How it works**: Git repos get explicit `.gitignore` entries so the root repo ignores them. Local folders have no such entry, so they're tracked and committed with the root repo via `/commit`.
+> **How it works**: Git repos are always gitignored — each keeps its own git history. Local folders default to being tracked by the root repo, but you can choose to gitignore them too (stored as `gitignore: true` in `repos.yaml`).
 
 ### 3. Customize
 
@@ -212,11 +212,12 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 | `/create-task <description>` | Create task file with prefix routing and auto-gathered context |
 | `/list-tasks [filter]` | List tasks by status, prefix, or repo |
 
-### Docs
+### Docs & Maintenance
 
 | Command | What it does |
 |---------|-------------|
 | `/update-all-md-docs` | Sync all markdown files with current state |
+| `/sync-template` | Pull latest template updates from upstream |
 
 ## Agents
 
@@ -277,11 +278,19 @@ repos:
     type: local              # No git, no clone
     prefix: cfg              # Task routing prefix
     description: Shared config and scripts
+
+  # Local source folder (gitignored)
+  - name: scratch
+    type: local
+    gitignore: true
+    prefix: scr
+    description: Scratch space — not committed
 ```
 
 - `type` — `git` (default) or `local`
 - `url` — required for git, omitted for local
 - `branch` — git only (default: `main`)
+- `gitignore` — local folders only. `true` to gitignore, `false`/omitted to track (default)
 - `prefix` — connects to task routing
 - `/pull-all-repos` — hydrate from manifest
 - `/add-repository` — add one + update manifest

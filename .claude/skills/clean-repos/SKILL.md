@@ -34,14 +34,14 @@ Scan `repos/repos.yaml` for stale entries — entries whose corresponding `repos
 7. **Remove stale entries from `repos/repos.md`** — for each stale entry, delete its `## <name>` section and all content up to the next `## ` heading or end of file
    - If no entries remain, restore the placeholder: `<!-- No repositories found. Clone repos into repos/ and run /pull-all-repos to populate this file. -->`
 
-8. **Update `.gitignore`** — for each stale git entry, remove the `repos/<name>/` line from `.gitignore`
+8. **Update `.gitignore`** — for each stale entry, if `repos/<name>/` appears in `.gitignore` (whether git repo or gitignored local folder), remove the line. No need to ask — stale entries shouldn't leave gitignore debris.
 
 9. **Report** a summary:
 
    | Entry | Type | Action |
    |-------|------|--------|
    | `<name>` | git | Removed from repos.yaml, repos.md, .gitignore |
-   | `<name>` | local | Removed from repos.yaml, repos.md |
+   | `<name>` | local | Removed from repos.yaml, repos.md (and .gitignore if present) |
 
 ## Notes
 

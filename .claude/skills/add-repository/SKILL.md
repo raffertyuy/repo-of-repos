@@ -57,7 +57,10 @@ The user will provide a git URL, local path, or directory name. For example:
      description: <1-line summary>
    ```
 
-4. **Ensure NOT in `.gitignore`** — if `repos/<folder-name>/` appears in `.gitignore`, remove it. Local folders are tracked by the root repo.
+4. **Ask about git tracking** — local folders can be either tracked by the root repo or gitignored. Ask the user: **"Should `repos/<folder-name>/` be tracked by git, or gitignored?"**
+   - If **tracked** (default): ensure `repos/<folder-name>/` is NOT in `.gitignore` (remove if present). Set `gitignore: false` in the yaml entry.
+   - If **gitignored**: add `repos/<folder-name>/` to `.gitignore`. Set `gitignore: true` in the yaml entry.
+   - **Note**: Git repos (`type: git`) are always gitignored — this choice only applies to local folders.
 
 5. **Update `repos/repos.md`** (see repos.md section below).
 

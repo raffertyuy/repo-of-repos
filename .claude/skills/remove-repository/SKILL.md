@@ -29,7 +29,7 @@ The user will provide a repo name. For example:
 4. **Remove from `repos/repos.md`** — delete the `## <name>` section and all its content up to the next `## ` heading or end of file
    - If no entries remain, restore the placeholder: `<!-- No repositories found. Clone repos into repos/ and run /pull-all-repos to populate this file. -->`
 
-5. **Update `.gitignore`** — if the entry was a git repo, remove the `repos/<name>/` line from `.gitignore`
+5. **Update `.gitignore`** — if `repos/<name>/` appears in `.gitignore` (whether git repo or gitignored local folder), remove the line. No need to ask — if the entry is being removed, its gitignore line should go too.
 
 6. **Optionally delete from disk** — only if the user confirmed deletion in step 2:
    - Run `rm -rf repos/<name>/`
