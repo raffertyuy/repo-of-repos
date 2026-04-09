@@ -22,7 +22,7 @@ This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyre
 .
 ├── CLAUDE.md                          # Root instructions for Claude Code
 ├── TEMPLATE_VERSION                   # Current template version
-├── CHANGELOG.md                       # Template changelog
+├── TEMPLATE_CHANGELOG.md              # Template changelog
 ├── .mcp.json                          # MCP servers (Claude Code)
 ├── .vscode/
 │   └── mcp.json                       # MCP servers (VS Code / Copilot)
@@ -181,7 +181,7 @@ This will:
 3. Smart-merge files that mix template and project content (`CLAUDE.md`, `README.md`, `.gitignore`)
 4. Never touch your repos, tasks, settings, or MCP config
 
-Check `CHANGELOG.md` to see what's new in each version. The skill reads it too — so it knows *why* things changed, not just *what* changed, and can merge intelligently.
+Check `TEMPLATE_CHANGELOG.md` to see what's new in each version. The skill reads it too — so it knows *why* things changed, not just *what* changed, and can merge intelligently.
 
 ## Skills (Slash Commands)
 

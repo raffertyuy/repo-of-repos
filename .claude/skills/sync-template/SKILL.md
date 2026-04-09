@@ -51,7 +51,7 @@ Clean up this directory when done (in the final step).
 
 ## Step 3: Read Changelog
 
-Read `CHANGELOG.md` from the upstream clone. Identify all versions between the local version and the upstream version. This tells you:
+Read `TEMPLATE_CHANGELOG.md` from the upstream clone. Identify all versions between the local version and the upstream version. This tells you:
 - **What files changed** and why
 - **Migration notes** — special handling needed (e.g., `.gitignore` strategy change)
 - **New files** that need to be created locally
@@ -199,7 +199,7 @@ If unsure whether removal was intentional, ask the user before re-adding.
 - Update **header comments only** (field documentation)
 - **NEVER** touch actual repo entries — those are entirely project-specific
 
-### CHANGELOG.md
+### TEMPLATE_CHANGELOG.md
 
 - Copy directly from upstream (this file is template-owned)
 
@@ -227,7 +227,7 @@ Write the upstream version string to the local `TEMPLATE_VERSION` file.
 - `.claude/skills/sync-template/SKILL.md`
 
 ### Key changes
-- Local source folder support (see CHANGELOG.md for details)
+- Local source folder support (see TEMPLATE_CHANGELOG.md for details)
 
 ### Next steps
 - Review the changes with `git diff`

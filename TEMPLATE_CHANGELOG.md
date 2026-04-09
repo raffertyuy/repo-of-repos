@@ -11,7 +11,7 @@ All notable changes to the repo-of-repos template. Run `/sync-template` to pull 
 - **`/pull-all-repos`**: orphan detection asks the same question for local orphans. Gitignore sync respects the `gitignore` field.
 - **`/remove-repository`**: cleans `.gitignore` for any removed entry (git or gitignored local), not just git repos.
 - **`/clean-repos`**: same — removes `.gitignore` lines for any stale entry type.
-- **`CLAUDE.md`**: new "Versioning & Changelog" section with rules for updating `CHANGELOG.md` and bumping `TEMPLATE_VERSION` before pushing.
+- **`CHANGELOG.md`**: renamed to `TEMPLATE_CHANGELOG.md` to avoid confusion in live projects.
 - **`README.md`**: added `/sync-template` to skills table. Updated local folder docs to reflect optional gitignore. Added `gitignore` field to manifest example.
 
 **Migration note**: Existing local folders default to tracked (no `gitignore` field = tracked). No action needed unless you want to gitignore a local folder — add `gitignore: true` to its entry in `repos/repos.yaml`.

@@ -123,22 +123,6 @@ This workspace strives for **Claude Code and GitHub Copilot cross-compatibility*
 
 4. **Test after syncing** — verify the MCP server or configuration works in the target tool if possible.
 
-## Versioning & Changelog
-
-This workspace is a **versioned template**. Two files track its version:
-
-- **`TEMPLATE_VERSION`** — single-line semver string (e.g., `0.3.1`)
-- **`CHANGELOG.md`** — human-readable record of what changed per version
-
-1. **When making changes** — update `CHANGELOG.md` with what changed and why. Add entries under the current version heading (create a new heading if bumping). Keep entries concise and grouped by topic.
-2. **Before pushing to remote** — bump `TEMPLATE_VERSION` first. Append the new version string to match the latest `CHANGELOG.md` heading. Never push without an updated version if the changelog has new entries.
-
-### Version Bumping Guide
-
-- **Patch** (0.3.x → 0.3.y): bug fixes, doc tweaks, minor skill updates
-- **Minor** (0.x.0 → 0.y.0): new skills, new agents, new framework features
-- **Major** (x.0.0 → y.0.0): breaking changes to workspace structure or manifest format
-
 ## Self-Improvement
 
 Tony Stark is authorized to **improve himself** in response to user feedback. This includes:
