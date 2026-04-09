@@ -87,15 +87,106 @@ These files contain both template content and project-specific content. You (the
 
 ### CLAUDE.md
 
-- Update template sections (Project Structure, Workspace Manifest, Git vs Local, Read/Write Separation, etc.)
-- Preserve project-specific sections the user may have added (architecture notes, data flows, team conventions)
-- Preserve any persona customizations
+CLAUDE.md is the most complex merge target. Live projects customize it heavily — different persona, project-specific architecture, custom coding standards, additional sections. The template evolves its framework sections independently.
+
+**Classify every section as one of:**
+
+| Classification | What it means | Merge strategy |
+|----------------|---------------|----------------|
+| **Template-owned** | Section exists in both template and local, content is purely framework | Replace with upstream version |
+| **Template-seeded, project-customized** | Section originated from template but the project has modified it | Three-way merge (see below) |
+| **Project-only** | Section exists only in the local file | Preserve as-is, keep in its current position |
+
+**Template-owned sections** (replace with upstream):
+
+- Project Structure (intro paragraph, bullet list of git repos / local folders)
+- Per-Repo Instructions (table of `CLAUDE.md` / `AGENTS.md` / `copilot-instructions.md`)
+- Workspace Manifest (the `repos.yaml` description paragraph)
+- Git vs Local Entries (comparison table)
+- Read/Write Separation
+- Task System
+- Prompt Snippets (the explanation paragraph)
+- Agentic Configuration Sync (table + rules)
+- Self-Improvement
+
+**Template-seeded sections that projects commonly customize** (three-way merge):
+
+- **Persona / Voice & Personality** — The template ships a default persona (Tony Stark). Projects may keep it, modify it, or replace it entirely. If the local version differs from the template default, **preserve the local persona**. Only apply upstream changes if the template's persona section gained new structural elements (e.g., new `Do NOT` rules) — append those to the local version.
+- **Writing Style** — Projects may add style rules. Preserve local additions, update template-originated rules.
+- **Coding Standards** — The template references a prompt snippet. Projects may add inline standards. Preserve local additions.
+- **Commit Message Style** — Same as above.
+
+**Three-way merge procedure:**
+
+1. Read the **upstream** section
+2. Read the **local** section
+3. Identify what the local version **added, removed, or changed** relative to what the template would have had
+4. Apply the upstream update as the new base
+5. Re-apply the local modifications on top
+6. If a local modification conflicts with an upstream change (both changed the same content), **prefer the local version** and add a comment: `<!-- sync-template: upstream also changed this section — review manually -->`
+
+**Project-only sections** — Anything in the local CLAUDE.md that has no counterpart in the upstream template. Common examples:
+
+- Architecture notes, system diagrams
+- Data flow descriptions
+- API contracts, schema references
+- Team conventions, on-call notes
+- Environment-specific setup
+- Custom rules or overrides
+
+These must be **preserved in their current position** in the file. If an upstream update adds a new template section, insert it in the correct position relative to other template sections, but never displace project-only sections.
+
+**Section ordering:** Follow the upstream's section order for template sections. Project-only sections stay where the user placed them. If a project-only section is between two template sections, keep it between them (or at the end if the surrounding template sections were reordered).
+
+**First-line / title:** The local CLAUDE.md may have a different title or opening line (e.g., `# aws-mk0` instead of `# CLAUDE.md`). Preserve the local title.
 
 ### README.md
 
-- Update template sections (Getting Started, Skills, Agents, Key Concepts, etc.)
-- Preserve project-specific sections (custom project tree, project description, etc.)
-- Pay special attention to the project structure tree — it may have project-specific entries
+README.md is the public face of the project. Live projects replace the template description, customize the project tree, add project-specific sections, and may remove template sections that don't apply.
+
+**Classify every section as one of:**
+
+| Classification | What it means | Merge strategy |
+|----------------|---------------|----------------|
+| **Template-owned** | Pure framework documentation | Replace with upstream version |
+| **Template-seeded, project-customized** | Originated from template, modified by project | Three-way merge |
+| **Project-only** | Exists only in the local file | Preserve as-is |
+| **Template-removed** | Exists in template but project intentionally deleted it | Do NOT re-add |
+
+**Template-owned sections** (replace with upstream):
+
+- Key Concepts > Read/Write Separation
+- Key Concepts > Task System
+- Key Concepts > Workspace Manifest (repos.yaml)
+- Cross-Repo PR Linking
+- Cross-Tool Sync (Claude Code + GitHub Copilot)
+- Customization
+- Prior Art & Inspiration
+- License
+
+**Template-seeded sections that projects commonly customize** (three-way merge):
+
+- **Project title and description** — The very top of the README. Projects replace the template name, description, and "The Problem / The Solution" with their own. **Always preserve the local version.** If the upstream added an "upstream template link" line and the local doesn't have it, suggest adding it but don't force it.
+- **Project Structure (tree)** — Projects add their own repos, remove example entries, add non-repo directories. Preserve the local tree structure. Only update the **template framework entries** (`.claude/`, `.github/`, `_tasks/`, etc.) if the upstream added new files or directories to those paths. Never remove project-specific tree entries.
+- **Getting Started** — Projects may simplify or customize setup steps. Preserve local modifications. Update only if the upstream changed core workflow (e.g., new required step, changed command syntax).
+- **Skills (Slash Commands)** — The table of available skills. **Regenerate from upstream** but preserve any project-specific skills the local version added. Check: if the local table has a skill not in the upstream, keep it. If upstream added a new skill, add it.
+- **Agents** — Same strategy as Skills — merge tables, preserve local additions.
+- **MCP Servers** — Preserve the local table (projects add their own servers). Only add new entries from upstream if the template introduced a new default MCP server.
+- **Keeping Up to Date** — Template-owned, replace with upstream.
+
+**Detecting intentionally removed sections:**
+
+If a template section exists in the upstream but NOT in the local README, the project likely removed it intentionally. **Do NOT re-add it.** Instead, note it in the sync report:
+
+```
+| Key Concepts > Workspace Manifest | Skipped (not present locally — likely intentionally removed) |
+```
+
+If unsure whether removal was intentional, ask the user before re-adding.
+
+**Three-way merge procedure:** Same as CLAUDE.md (see above).
+
+**Section ordering:** Follow the local file's ordering. If upstream introduces a new section, insert it in a logical position relative to existing sections.
 
 ### .gitignore
 
