@@ -2,6 +2,19 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.5.2
+
+### commit/commit-all-repos now stage and push; sync-template detects removed template files
+
+- **`/commit`**: now does `git add` (explicit paths), `git commit`, and `git push` in one flow. No more committing only what was manually staged.
+- **`/commit-all-repos`**: same — each sub-repo is staged, committed, and pushed. Description updated to match.
+- **`origin: template` frontmatter**: added `origin: template` field to all template-owned skill SKILL.md files and agent files. This is the canonical marker that distinguishes template files from project-custom ones.
+- **`/sync-template` Step 4**: new "Removed template files" logic — scans local skills/agents with `origin: template`, checks each against upstream, and prompts the user to delete any that no longer exist in the template. Skills/agents without `origin: template` are never touched.
+- **`/sync-template` report**: sync summary now includes a "Removed files" section.
+- **`/sync-template` notes**: documents the `origin: template` contract for future skill authors.
+
+**Migration note**: Live projects with `/create-task` and `/list-tasks` skills should manually delete those directories (`.claude/skills/create-task/` and `.claude/skills/list-tasks/`). Future syncs will detect and prompt removal automatically.
+
 ## 0.5.1
 
 ### Simpler plan filenames

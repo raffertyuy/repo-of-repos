@@ -202,8 +202,8 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 
 | Command | What it does |
 |---------|-------------|
-| `/commit` | Commit root workspace only (excludes `repos/`) |
-| `/commit-all-repos` | Commit each sub-repo, then root workspace |
+| `/commit` | Stage, commit, and push root workspace only (excludes `repos/`) |
+| `/commit-all-repos` | Stage, commit, and push each sub-repo, then root workspace |
 | `/pr-all-repos` | Create PRs in all sub-repos, cross-link as siblings |
 
 ### Docs & Maintenance

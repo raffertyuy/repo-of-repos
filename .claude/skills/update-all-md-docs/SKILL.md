@@ -2,6 +2,7 @@
 name: update-all-md-docs
 description: Review and update all markdown docs in the repo-of-repos (excluding cloned repos)
 user-invocable: true
+origin: template
 ---
 
 Review and update all `.md` files in the repo-of-repos workspace to ensure they are accurate and consistent with the current state of the project.

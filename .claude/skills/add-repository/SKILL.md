@@ -2,6 +2,7 @@
 name: add-repository
 description: Clone a git repo or register a local folder into repos/ and update repos.md with its description
 user-invocable: true
+origin: template
 ---
 
 Clone a git repository or register a local source folder into `repos/` and add its entry to `repos/repos.yaml` and `repos/repos.md`.

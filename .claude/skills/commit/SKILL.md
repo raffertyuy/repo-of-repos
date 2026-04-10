@@ -1,12 +1,13 @@
 ---
 name: commit
-description: Create a commit for the master repo only (excludes sub-repos in repos/)
+description: Stage, commit, and push changes for the master repo only (excludes sub-repos in repos/)
 user-invocable: true
+origin: template
 ---
 
 # Commit (Master Repo Only)
 
-Commit changes in the **root workspace only**. This skill does NOT touch any sub-repos under `repos/`.
+Stage, commit, and push changes in the **root workspace only**. This skill does NOT touch any sub-repos under `repos/`.
 
 ## Scope
 
@@ -19,8 +20,9 @@ Commit changes in the **root workspace only**. This skill does NOT touch any sub
 1. Run `git status` (never use `-uall`) and `git diff` to review changes — **ignore any changes under `repos/`**
 2. Run `git log --oneline -5` to match recent commit message style
 3. Follow the commit message guidelines in `.claude/prompt-snippets/commit-message.md`
-4. Stage only root-level files (use explicit paths, never `git add -A` or `git add .` which could pull in sub-repo changes)
+4. Stage only root-level files using explicit paths — never `git add -A` or `git add .` which could pull in sub-repo changes
 5. Create the commit
-6. Run `git status` to verify
+6. Run `git push` to push the commit to the remote
+7. Run `git status` to verify
 
 If there are no root-level changes to commit, say so and stop.

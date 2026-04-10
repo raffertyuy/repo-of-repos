@@ -1,12 +1,13 @@
 ---
 name: commit-all-repos
-description: Iterate through all sub-repos in repos/ and commit each one, then commit the master repo
+description: Iterate through all sub-repos in repos/ and stage/commit/push each one, then do the same for the master repo
 user-invocable: true
+origin: template
 ---
 
 # Commit All Repos
 
-Iterate through every sub-repo in `repos/` and commit changes in each one individually, then commit the master repo last.
+Iterate through every sub-repo in `repos/` and stage, commit, and push changes in each one individually, then do the same for the master repo last.
 
 ## Order of Operations
 
@@ -29,9 +30,10 @@ For each directory under `repos/<name>/` that is a **git repository** (has a `.g
    - `.github/copilot-instructions.md` in the sub-repo
    - These instructions **take precedence** over root-level instructions for that repo's commit
 6. Follow the sub-repo's commit message guidelines if they define any; otherwise fall back to the root `.claude/prompt-snippets/commit-message.md`
-7. Stage relevant files (use explicit paths, not `git add -A`)
+7. Stage relevant files using explicit paths — never `git add -A`
 8. Create the commit
-9. Run `git status` to verify
+9. Run `git push` to push the commit to the remote
+10. Run `git status` to verify
 
 ## For the Master Repo
 

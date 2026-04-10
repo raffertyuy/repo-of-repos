@@ -2,6 +2,7 @@
 name: sync-template
 description: Pull latest repo-of-repos template updates into this workspace
 user-invocable: true
+origin: template
 ---
 
 # Sync Template
@@ -73,9 +74,22 @@ These are framework files with no project-specific content. Copy them directly f
 | `_plans/README.md` | Plan system docs |
 | `docs/*.md` | Reference documentation |
 
-**New files**: If the upstream has new skills, agents, rules, or prompt snippets that don't exist locally, create them (including any new directories).
+**New files**: If the upstream has new skills, agents, rules, or prompt snippets that don't exist locally, create them (including any new directories). When creating skill or agent files, ensure the `origin: template` frontmatter field is present (copy it from upstream as-is).
 
-**Deleted files**: If the upstream removed a skill or agent that exists locally, warn the user but do NOT delete — it may be a local addition.
+**Removed template files**: Some skills or agents may have been removed from the template (e.g., `/create-task` and `/list-tasks` were removed in v0.5.0). To detect these:
+
+1. Scan local `.claude/skills/*/SKILL.md` and `.claude/agents/*.md` for files that have `origin: template` in their frontmatter
+2. For each such file, check if the corresponding path exists in the upstream clone
+3. If a local `origin: template` file is **NOT** present in upstream → it was intentionally removed from the template
+4. Show the user a list of these orphaned template files and ask for confirmation before deleting:
+   ```
+   The following template-owned skills/agents no longer exist in the upstream template:
+   - .claude/skills/create-task/SKILL.md
+   - .claude/skills/list-tasks/SKILL.md
+   Delete these? [y/N]
+   ```
+5. If confirmed, delete the files and their parent directories (only if the directory contains no other files)
+6. Local skills/agents **without** `origin: template` are project-custom — never touch them
 
 ## Step 5: Smart-Merge Mixed Files
 
@@ -227,6 +241,10 @@ Write the upstream version string to the local `TEMPLATE_VERSION` file.
 ### New files
 - `.claude/skills/sync-template/SKILL.md`
 
+### Removed files
+- `.claude/skills/create-task/` *(template skill removed in v0.5.0)*
+- `.claude/skills/list-tasks/` *(template skill removed in v0.5.0)*
+
 ### Key changes
 - Local source folder support (see TEMPLATE_CHANGELOG.md for details)
 
@@ -237,7 +255,9 @@ Write the upstream version string to the local `TEMPLATE_VERSION` file.
 
 ## Notes
 
-- **Never delete local files** unless they're template-owned and were removed upstream (and even then, warn first)
+- **Never delete local files** unless they have `origin: template` in frontmatter AND are absent from upstream (and even then, always confirm with user first)
+- Local skills/agents without `origin: template` are project-custom — ignore them entirely during sync
+- When copying any skill or agent file from upstream, preserve the `origin: template` frontmatter field (it will already be there — don't strip it)
 - **Never touch** `repos/repos.md`, `repos/*/`, `_plans/*.plan.md` (user plans), `.claude/settings*.json`, `.mcp.json`, `.vscode/mcp.json`
 - **Always preserve** project-specific content in mixed files — when in doubt, keep both
 - If the merge is ambiguous, show both versions to the user and ask which to keep
