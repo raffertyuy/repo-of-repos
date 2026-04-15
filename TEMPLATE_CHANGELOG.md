@@ -2,6 +2,12 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.5.4
+
+### Expanded search.exclude for multi-language repos
+
+- **`.vscode/settings.json`**: added broad `search.exclude` patterns covering JS/TS (`dist/`, `.next/`, `.nuxt/`), Python (`.venv/`, `venv/`, `__pycache__/`, `.pytest_cache/`, `.mypy_cache/`, `.ruff_cache/`), .NET (`bin/`, `obj/`), Java/Kotlin (`target/`, `.gradle/`), Go (`vendor/`), IaC (`.pulumi/`), and general artifacts (`build/`, `out/`, `coverage/`, `.cache/`). These prevent build outputs and dependency caches from polluting workspace search results across heterogeneous repos.
+
 ## 0.5.3
 
 ### Fix /pull-all-repos orphan detection on empty manifest
