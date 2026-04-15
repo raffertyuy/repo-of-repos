@@ -1,0 +1,44 @@
+{
+  "search.useIgnoreFiles": false,
+  "search.exclude": {
+    "**/.git/**": true,
+
+    // JS/TS
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/.next/**": true,
+    "**/.nuxt/**": true,
+
+    // Python
+    "**/__pycache__/**": true,
+    "**/.venv/**": true,
+    "**/venv/**": true,
+    "**/.pytest_cache/**": true,
+    "**/.mypy_cache/**": true,
+    "**/.ruff_cache/**": true,
+
+    // .NET
+    "**/bin/**": true,
+    "**/obj/**": true,
+
+    // Java / Kotlin
+    "**/target/**": true,
+    "**/.gradle/**": true,
+
+    // Go
+    "**/vendor/**": true,
+
+    // Rust
+    // target/ already covered above
+
+    // IaC / Cloud
+    "**/.terraform/**": true,
+    "**/.pulumi/**": true,
+
+    // General build/test artifacts
+    "**/build/**": true,
+    "**/out/**": true,
+    "**/coverage/**": true,
+    "**/.cache/**": true
+  }
+}
