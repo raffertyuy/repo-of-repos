@@ -2,6 +2,12 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.5.3
+
+### Fix /pull-all-repos orphan detection on empty manifest
+
+- **`/pull-all-repos`**: fixed early exit when `repos.yaml` has an empty list (`repos: []`). Previously, an empty manifest would short-circuit with a "nothing to do" message, skipping orphan detection entirely. Now skips steps 2–4 and proceeds directly to step 5 (orphan detection), so manually added folders in `repos/` are always discovered and registered.
+
 ## 0.5.2
 
 ### commit/commit-all-repos now stage and push; sync-template detects removed template files

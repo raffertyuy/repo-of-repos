@@ -30,7 +30,7 @@ Read `repos/repos.yaml` from the project root. Each entry has:
 - `prefix` (optional) — short prefix for the repo (used in references)
 - `description` (optional) — one-line summary
 
-If `repos/repos.yaml` has an empty list (`repos: []`), inform the user and suggest adding entries or using `/add-repository`.
+If `repos/repos.yaml` has an empty list (`repos: []`), skip steps 2–4 and proceed directly to step 5 (orphan detection). The manifest being empty does NOT mean the workspace is empty — there may be repos on disk that need to be registered.
 
 ## Cloning Missing Git Repos
 
