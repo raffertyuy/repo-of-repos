@@ -4,8 +4,8 @@ Plan files drive the plan-implement workflow. Each plan scopes work to specific 
 
 ## Workflow
 
-1. **`/plan`** — create a plan with steps, context, and pseudocode
-2. **`/implement`** — execute the plan, check off steps, document fixes
+1. **`/create-plan`** — create a plan with steps, context, and pseudocode
+2. **`/implement-plan`** — execute the plan, check off steps, document fixes
 
 ## File Naming
 
@@ -61,12 +61,12 @@ What and why. Keep it brief.
 | Status | Meaning |
 |--------|---------|
 | `draft` | Plan created, not yet implemented |
-| `in-progress` | `/implement` is actively executing steps |
+| `in-progress` | `/implement-plan` is actively executing steps |
 | `completed` | All steps done, tested, verified |
 
-## How /implement Updates the Plan
+## How /implement-plan Updates the Plan
 
-When `/implement` runs against a plan:
+When `/implement-plan` runs against a plan:
 
 1. Sets `status: in-progress`
 2. Works through each unchecked step sequentially

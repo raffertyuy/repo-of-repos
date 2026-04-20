@@ -1,11 +1,11 @@
 ---
-name: implement
+name: implement-plan
 description: Execute a plan from _plans/, implementing steps, checking off tasks, running tests, and documenting fixes
 user-invocable: true
 origin: template
 ---
 
-# Implement
+# Implement Plan
 
 Execute an implementation plan from `_plans/`, working through each step, updating the plan as you go, and running tests to verify.
 
@@ -14,9 +14,9 @@ This skill combines the "implement" and "run" phases into one — you build it, 
 ## Arguments
 
 The user provides the plan file to implement. For example:
-- `/implement _plans/20260409-auth-ui.plan.md`
-- `/implement auth-ui` (shorthand — resolve to the matching `.plan.md` file in `_plans/`)
-- `/implement` (no argument — if only one plan has `status: draft` or `status: in-progress`, use that)
+- `/implement-plan _plans/20260409-auth-ui.plan.md`
+- `/implement-plan auth-ui` (shorthand — resolve to the matching `.plan.md` file in `_plans/`)
+- `/implement-plan` (no argument — if only one plan has `status: draft` or `status: in-progress`, use that)
 
 ## Steps
 

@@ -73,11 +73,11 @@ The orchestrator (you, Tony) coordinates by spawning scoped workers. Never have 
 
 `_plans/` holds implementation plans that drive the plan-implement workflow.
 
-- `/plan` — create a plan with steps, context, and pseudocode
-- `/implement` — execute the plan, check off steps, run tests, document fixes
+- `/create-plan` — create a plan with steps, context, and pseudocode
+- `/implement-plan` — execute the plan, check off steps, run tests, document fixes
 - Filenames use date prefix: `YYYYMMDD-<plan-name>.plan.md`
 - Plans embed distilled context (API surfaces, types, schemas) so agents skip full codebase reads
-- Plans are living documents — `/implement` updates them with checkmarks, notes, and fixes as it works
+- Plans are living documents — `/implement-plan` updates them with checkmarks, notes, and fixes as it works
 
 See `_plans/README.md` for format.
 

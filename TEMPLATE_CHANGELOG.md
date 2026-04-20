@@ -2,6 +2,18 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.5.5
+
+### Rename plan skills to avoid Copilot collision
+
+GitHub Copilot ships a default `/plan` command, making the template's `/plan` skill uncallable in Copilot. Renamed both plan skills to avoid the collision.
+
+- **`/plan` → `/create-plan`**: skill directory renamed (`.claude/skills/plan/` → `.claude/skills/create-plan/`). SKILL.md `name` field and examples updated.
+- **`/implement` → `/implement-plan`**: skill directory renamed (`.claude/skills/implement/` → `.claude/skills/implement-plan/`). SKILL.md `name` field and examples updated. Renamed for symmetry with `/create-plan`.
+- **Docs**: updated references in `CLAUDE.md`, `README.md`, and `_plans/README.md` to use the new command names.
+
+**Migration note**: Live projects should run `/sync-template` to pick up the renames. The `/sync-template` skill will detect the old `.claude/skills/plan/` and `.claude/skills/implement/` directories as removed template files (via `origin: template` frontmatter) and prompt for deletion. Confirm to remove the old directories. New skills appear at `.claude/skills/create-plan/` and `.claude/skills/implement-plan/`.
+
 ## 0.5.4
 
 ### Expanded search.exclude for multi-language repos

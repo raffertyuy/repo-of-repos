@@ -64,7 +64,7 @@ Inspired by the [Plan-Implement-Run pattern](https://raffertyuy.com/raztype/vibe
 ### Step 1: Plan
 
 ```
-/plan Add Google OAuth to the login flow
+/create-plan Add Google OAuth to the login flow
 ```
 
 This creates a plan file in `_plans/` with:
@@ -105,7 +105,7 @@ Review the plan. Adjust steps if needed. This is your chance to catch issues bef
 ### Step 2: Implement
 
 ```
-/implement google-oauth
+/implement-plan google-oauth
 ```
 
 This executes the plan:
@@ -195,8 +195,8 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 
 | Command | What it does |
 |---------|-------------|
-| `/plan <description>` | Create an implementation plan with steps, context, and pseudocode |
-| `/implement [plan-file]` | Execute a plan — build, test, fix, and update the plan as you go |
+| `/create-plan <description>` | Create an implementation plan with steps, context, and pseudocode |
+| `/implement-plan [plan-file]` | Execute a plan — build, test, fix, and update the plan as you go |
 
 ### Git
 

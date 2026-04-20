@@ -1,20 +1,20 @@
 ---
-name: plan
+name: create-plan
 description: Create an implementation plan in _plans/ with embedded repo context and step-by-step task lists
 user-invocable: true
 origin: template
 ---
 
-# Plan
+# Create Plan
 
-Create a detailed implementation plan before any coding begins. The plan is a markdown file with checkboxes that `/implement` will later execute and update.
+Create a detailed implementation plan before any coding begins. The plan is a markdown file with checkboxes that `/implement-plan` will later execute and update.
 
 ## Arguments
 
 The user provides a description of the work to be done. For example:
-- `/plan Add Google OAuth to the login flow`
-- `/plan Migrate user table to new schema`
-- `/plan Update API rate limiting across all services`
+- `/create-plan Add Google OAuth to the login flow`
+- `/create-plan Migrate user table to new schema`
+- `/create-plan Update API rate limiting across all services`
 
 ## Steps
 
@@ -98,7 +98,7 @@ created: <today's date>
 Before finishing, verify the plan:
 - [ ] Steps are ordered by dependency (do X before Y if Y depends on X)
 - [ ] Each step is small enough to implement and verify independently
-- [ ] Pseudocode is used, not real code — implementation details are for `/implement`
+- [ ] Pseudocode is used, not real code — implementation details are for `/implement-plan`
 - [ ] Files listed actually exist (or are clearly marked as "new file")
 - [ ] A validation step exists at the end
 - [ ] Any user intervention points are called out
@@ -109,7 +109,7 @@ Tell the user:
 - The plan file path
 - A brief summary of the steps
 - Which repos are in scope
-- Suggested next step: "Run `/implement _plans/<filename>` when ready to build."
+- Suggested next step: "Run `/implement-plan _plans/<filename>` when ready to build."
 
 ## Notes
 
@@ -119,4 +119,4 @@ Tell the user:
 - Use pseudocode only, not real code
 - Call out any points where user input or decisions are needed
 - Plans are tracked in git — they're workspace artifacts
-- Review the plan with the user before they run `/implement`
+- Review the plan with the user before they run `/implement-plan`
