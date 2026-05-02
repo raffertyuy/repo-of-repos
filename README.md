@@ -6,6 +6,10 @@
 
 A starter template for working with **multiple git repos and local source folders as a single AI-powered workspace**.
 
+> **The pattern in one sentence:** an outer "agent" repo pulls in all related repos under a `repos/` folder as workspace folders, while commits still flow back to each underlying repo's own origin. Tony is that outer repo. He sees one workspace; the codebase still ships the way it always has.
+>
+> For the longer write-up — the problem this solves, the bundled skills and agents, the prior art, and when **not** to use this pattern — see the accompanying blog post: **[Repo-of-Repos: Tony's Multi-Repo Workspace for AI Coding Agents](https://raffertyuy.com/raztype/repo-of-repos-pattern/)**.
+
 ## The Problem
 
 Real projects span many repos. AI tools work best when they see everything in one place. You don't want a monorepo.
