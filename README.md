@@ -12,7 +12,11 @@ A starter template for working with **multiple git repos and local source folder
 
 ## The Problem
 
-Real projects span many repos. AI tools work best when they see everything in one place. You don't want a monorepo.
+The way we split code across multiple git repos — frontend, microservices, shared libraries, infrastructure — exists primarily because, up until just recently, all programmers were humans. Compartmentalization of git repositories is a human way of managing complexity.
+
+But with AI coding agents in the picture, the landscape has changed. Unlike humans, AI coding agents struggle without enough context. And with newer models supporting larger context windows, they can now understand multiple pieces of code in a single workspace.
+
+This **repo-of-repos** template is an attempt to solve this problem.
 
 ## The Solution
 
