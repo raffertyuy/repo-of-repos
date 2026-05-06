@@ -2,6 +2,12 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.5.6
+
+### Show nested git sub-repos in VS Code Source Control
+
+- **`.vscode/settings.json`**: added `"git.repositoryScanMaxDepth": 3`. VS Code's git scanner defaults to depth `1`, which doesn't reach `repos/<name>/.git` (depth 2). With this raised to 3, every git-type sub-repo in `repos/` shows up as its own entry in the Source Control panel — each with its own branch indicator, staging area, and Commit button. Local-type entries (no `.git`) continue to be tracked by the parent repo as before.
+
 ## 0.5.5
 
 ### Rename plan skills to avoid Copilot collision

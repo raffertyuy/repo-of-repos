@@ -1,4 +1,5 @@
 {
+  "git.repositoryScanMaxDepth": 3,
   "search.useIgnoreFiles": false,
   "search.exclude": {
     "**/.git/**": true,
