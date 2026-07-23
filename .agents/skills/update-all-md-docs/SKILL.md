@@ -1,0 +1,34 @@
+---
+name: update-all-md-docs
+description: Review and update all markdown docs in the repo-of-repos (excluding cloned repos)
+user-invocable: true
+origin: template
+---
+
+Review and update all `.md` files in the repo-of-repos workspace to ensure they are accurate and consistent with the current state of the project.
+
+## Scope
+
+- **Include**: All `*.md` files in the root and its subdirectories (`.agents/`, `.claude/`, `.codex/`, `.github/`, `.vscode/`, `repos/*.md`)
+- **Read but don't edit**: Files inside cloned repos (`repos/*/`) — read these to inform updates to `repos/*.md` files, but never modify them
+
+## Steps
+
+1. **Discover** all in-scope `.md` files using glob patterns. Also list directories in `repos/*/` to identify cloned repos.
+
+2. **Read each file** and check for:
+   - Outdated references to files, directories, or features that no longer exist
+   - Missing references to new files, directories, or features that have been added
+   - Inconsistencies between documents (e.g., README.md describes a structure that doesn't match the actual file tree)
+   - Stale MCP server lists, skill lists, agent lists, or config tables
+   - Broken relative links
+
+3. **Update each file** to reflect the current state:
+   - Sync the file tree in README.md with the actual directory structure
+   - Ensure MCP server tables match what's in `.mcp.json` and `.codex/config.toml`
+   - Ensure skill stubs in `.claude/skills/` exist for every canonical skill in `.agents/skills/` (and frontmatter matches)
+   - Ensure skill/agent/rule references are complete and accurate
+   - **Skip `repos/repos.md`** — owned by `/pull-all-repos`, not this skill
+   - Keep the existing tone and structure of each file — don't rewrite from scratch
+
+4. **Report** a summary of what was changed and why.

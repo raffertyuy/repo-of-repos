@@ -24,6 +24,10 @@ Clone repos into `repos/`. Put local source code there too. Root-level agentic c
 
 This pattern goes by many names — "Virtual Monorepo," "Spine Pattern," "Polyrepo Synthesis." This template packages the best ideas into a ready-to-use workspace.
 
+### Works With Claude Code, Copilot, and Codex
+
+The workspace is **cross-compatible across Claude Code, GitHub Copilot, and OpenAI Codex**. Instructions live in `AGENTS.md`, skills in `.agents/skills/` — each tool reads the same canonical files natively or through a thin pointer. No duplicated content. See [docs/cross-tool-sync.md](docs/cross-tool-sync.md) and the [cross-compatibility write-up](https://raffertyuy.com/raztype/claude-copilot-codex-cross-compatibility/).
+
 ## Getting Started
 
 ### 1. Use This Template
@@ -55,7 +59,7 @@ You can also add local source folders (scripts, shared config, prototypes) that 
 
 ### 3. Customize
 
-- `CLAUDE.md` — add project context, architecture notes, data flows
+- `AGENTS.md` — add project context, architecture notes, data flows (read by all tools; `CLAUDE.md` just points here)
 - `.claude/rules/` — add rules for your languages/frameworks
 - `.claude/prompt-snippets/` — tune shared instructions
 
@@ -160,21 +164,23 @@ See `_plans/README.md` for the full plan file format.
 
 ```
 .
-├── CLAUDE.md                          # Root instructions for Claude Code
+├── AGENTS.md                          # Canonical instructions for ALL AI agents
+├── CLAUDE.md                          # One-line pointer: @AGENTS.md
 ├── TEMPLATE_VERSION                   # Current template version
 ├── TEMPLATE_CHANGELOG.md              # Template changelog
-├── .mcp.json                          # MCP servers (Claude Code)
-├── .vscode/
-│   └── mcp.json                       # MCP servers (VS Code / Copilot)
+├── .mcp.json                          # MCP servers (Claude Code, Copilot, VS Code 1.118+)
+├── .agents/
+│   └── skills/                        # Canonical skills (Copilot + Codex read natively)
 ├── .claude/
 │   ├── settings.json                  # Claude Code settings
-│   ├── agents/                        # explorer, worker, reviewer
+│   ├── agents/                        # explorer, worker, reviewer (Claude Code + Copilot)
 │   ├── rules/                         # Auto-applied rules by file type
-│   ├── skills/                        # Slash commands (see below)
+│   ├── skills/                        # Skill stubs → .agents/skills/ (Claude Code)
 │   └── prompt-snippets/               # Shared instructions
-├── .github/
-│   ├── agents/                        # Copilot equivalents
-│   └── instructions/                  # Copilot rules
+├── .codex/
+│   └── config.toml                    # Codex config (MCP server mirror)
+├── .vscode/
+│   └── settings.json                  # Editor settings (search excludes, git scan depth)
 ├── _plans/                            # Implementation plans
 │   └── README.md
 ├── docs/                              # Detailed reference docs
@@ -187,7 +193,7 @@ See `_plans/README.md` for the full plan file format.
 
 ## Slash Commands
 
-Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
+Invoked with `/<name>` in Claude Code, GitHub Copilot, or OpenAI Codex. Canonical definitions live in `.agents/skills/` (Copilot and Codex read them natively); `.claude/skills/` holds thin stubs for Claude Code.
 
 ### Workspace
 
@@ -223,7 +229,7 @@ Invoked in Claude Code with `/<name>`. Defined in `.claude/skills/`.
 
 ## Agents
 
-The workspace uses three specialized agents. Defined in `.claude/agents/` and mirrored in `.github/agents/` for Copilot.
+The workspace uses three specialized agents. Defined once in `.claude/agents/` — read natively by both Claude Code and GitHub Copilot (VS Code and CLI). Codex doesn't support custom agents yet.
 
 | Agent | Scope | Purpose |
 |-------|-------|---------|
@@ -235,7 +241,7 @@ The workspace uses three specialized agents. Defined in `.claude/agents/` and mi
 
 ## MCP Servers
 
-Configured in both `.mcp.json` and `.vscode/mcp.json`:
+Configured in `.mcp.json` (Claude Code, Copilot, VS Code 1.118+) and mirrored in `.codex/config.toml` (Codex):
 
 | Server | Purpose |
 |--------|---------|
@@ -260,17 +266,18 @@ See `TEMPLATE_CHANGELOG.md` for what's new in each version.
 |-------|-------|
 | Adding repos and local folders | [docs/adding-repos.md](docs/adding-repos.md) |
 | Workspace manifest format | [docs/workspace-manifest.md](docs/workspace-manifest.md) |
-| Cross-tool sync (Claude Code + Copilot) | [docs/cross-tool-sync.md](docs/cross-tool-sync.md) |
+| Cross-tool sync (Claude Code + Copilot + Codex) | [docs/cross-tool-sync.md](docs/cross-tool-sync.md) |
 | Plan file format | [_plans/README.md](_plans/README.md) |
 
 ## Customization
 
-- **`CLAUDE.md`** — project context, architecture, data flows
+- **`AGENTS.md`** — project context, architecture, data flows (canonical for all tools)
+- **Skills** — add canonical `SKILL.md` in `.agents/skills/<name>/` plus a stub in `.claude/skills/<name>/`
 - **`.claude/rules/`** — auto-apply rules by file glob (e.g., frontend standards)
 - **`.claude/prompt-snippets/`** — shared instructions used by 2+ features
-- **Agents** — add or customize in `.claude/agents/`
-- **MCP servers** — add to both `.mcp.json` and `.vscode/mcp.json`
-- **Per-repo instructions** — repos can have their own `CLAUDE.md`, `AGENTS.md`, or `.github/copilot-instructions.md`
+- **Agents** — add or customize in `.claude/agents/` (read by Claude Code and Copilot)
+- **MCP servers** — add to both `.mcp.json` and `.codex/config.toml`
+- **Per-repo instructions** — repos can have their own `AGENTS.md`, `CLAUDE.md`, or `.github/copilot-instructions.md`
 
 ## Prior Art & Inspiration
 
@@ -284,7 +291,7 @@ This template builds on ideas from the community:
 | Cross-repo PR linking (`/pr-all-repos`) | [Superblocks](https://www.superblocks.com/blog/a-single-dev-workspace-for-ai-agents) — `just pr` with sibling PR URL injection |
 | Repo-scoped planning | [Spine Pattern](https://tsoporan.com/blog/spine-pattern-multi-repo-ai-development/) — Titus Soporan's prefix-based task scoping |
 | Context distillation in plans | [Context from Internal Repos](https://elite-ai-assisted-coding.dev/p/context-from-internal-git-repos) — CI/CD-driven context extraction |
-| Cross-tool sync (Claude + Copilot) | [Claude + Copilot Cross-Compatibility](https://raffertyuy.com/raztype/claude-copilot-xcompatibility/) — keeping both tools in sync |
+| Cross-tool sync (Claude + Copilot + Codex) | [Claude + Copilot + Codex Cross-Compatibility](https://raffertyuy.com/raztype/claude-copilot-codex-cross-compatibility/) — one canonical file per feature across all three tools |
 
 Also worth reading:
 - [Polyrepo Synthesis](https://rajiv.com/blog/2025/11/30/polyrepo-synthesis-synthesis-coding-across-multiple-repositories-with-claude-code-in-visual-studio-code/) — Rajiv Pant, unified VS Code workspace across repos

@@ -2,6 +2,25 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.6.0
+
+### Cross-tool compatibility: Claude Code + GitHub Copilot + OpenAI Codex
+
+Restructured agentic config so all three tools read the same canonical files, per [Claude + Copilot + Codex Cross-Compatibility](https://raffertyuy.com/raztype/claude-copilot-codex-cross-compatibility/). One canonical location per feature — no duplicated content.
+
+- **`AGENTS.md`** (new): canonical instruction file, read natively by Copilot and Codex. All content moved here from `CLAUDE.md`.
+- **`CLAUDE.md`**: reduced to a one-line pointer — `@AGENTS.md`. Claude Code expands the import.
+- **Skills moved to `.agents/skills/`**: canonical `SKILL.md` files now live in `.agents/skills/<name>/` (read natively by Copilot and Codex). `.claude/skills/<name>/SKILL.md` are now thin stubs — duplicated frontmatter plus `@../../../.agents/skills/<name>/SKILL.md` (Claude Code reads only the stub's frontmatter for discovery).
+- **`.codex/config.toml`** (new): Codex MCP server mirror of `.mcp.json` (`[mcp_servers.name]` TOML sections). Keep both in sync.
+- **`.github/agents/` removed**: VS Code and Copilot CLI now read Claude-format agents from `.claude/agents/` directly — the mirrors were stale duplicates.
+- **`.github/instructions/` removed**: VS Code Copilot now reads `.claude/rules/`. The frontend standards content moved into `.claude/rules/frontend.md` (previously it only pointed at the Copilot file).
+- **`.vscode/mcp.json` removed**: VS Code 1.118+ reads the root `.mcp.json`. Older VS Code users can recreate `.vscode/mcp.json` with a `"servers"` key if needed.
+- **`/sync-template`**: safe-copy list, removed-file detection, and merge instructions updated for the new layout. The `CLAUDE.md` merge section is now the `AGENTS.md` merge section, with a pre-0.6.0 migration path.
+- **`/update-all-md-docs`**: scope and consistency checks updated (`.agents/`, `.codex/`, skill-stub validation, `.codex/config.toml` MCP table check).
+- **Docs**: `docs/cross-tool-sync.md` rewritten for three tools. `README.md` structure tree, skills/agents/MCP/customization sections updated.
+
+**Migration note**: run `/sync-template`. It will: (1) create `AGENTS.md` from your customized `CLAUDE.md` content and replace `CLAUDE.md` with the one-line pointer, (2) move skills to `.agents/skills/` and create stubs in `.claude/skills/`, (3) create `.codex/config.toml` mirroring your `.mcp.json` servers, and (4) prompt to delete `.github/agents/`, `.github/instructions/` (after merging any customized rule content into `.claude/rules/`), and `.vscode/mcp.json` (keep it if your VS Code is older than 1.118).
+
 ## 0.5.6
 
 ### Show nested git sub-repos in VS Code Source Control

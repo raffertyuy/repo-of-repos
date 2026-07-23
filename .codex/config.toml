@@ -1,0 +1,9 @@
+# Codex mirror of .mcp.json — keep both in sync (see AGENTS.md "Cross-Tool Compatibility")
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest"]
