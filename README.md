@@ -233,7 +233,7 @@ The workspace uses three specialized agents. Defined once in `.claude/agents/` â
 
 | Agent | Scope | Purpose |
 |-------|-------|---------|
-| **explorer** | Read-only, all repos | Trace dependencies, find types, answer "what breaks if I change X?" |
+| **explorer** | Read-only, all repos | Trace dependencies, find types, answer "what breaks if I change X?" Has `Bash` for git/search; read-only by instruction. |
 | **worker** | Write-scoped, one repo | Implement changes. Follows the target repo's own instructions. |
 | **reviewer** | Read-only | Code review against shared standards. |
 

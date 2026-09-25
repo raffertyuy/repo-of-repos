@@ -1,5 +1,5 @@
 ---
-paths: ["src/**/*.tsx", "src/**/*.css"]
+paths: ["**/src/**/*.tsx", "**/src/**/*.css"]
 origin: template
 ---
 

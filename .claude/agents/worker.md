@@ -1,5 +1,6 @@
 ---
 name: worker
+description: "Write-scoped implementer for ONE repo under repos/<name>/. Use for any code or file change inside a single sub-repo. Follows that repo's own AGENTS.md/CLAUDE.md and never touches other repos or root files."
 tools: ["Read", "Edit", "Write", "Grep", "Glob", "Bash"]
 origin: template
 ---

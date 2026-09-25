@@ -78,9 +78,13 @@ Same command, args, and env — different wrapper. Any server added to one file 
 
 VS Code and Copilot CLI read Claude-format agents from `.claude/agents/` directly — one file serves both. Codex doesn't read this format (it uses `.codex/agents/` TOML files); this is a known gap. If you need an agent in Codex, create a TOML wrapper that references the shared prompt content.
 
+Every agent needs `name` and `description` in its frontmatter. Claude Code silently skips agents without a `description`, and uses it to decide when to delegate.
+
 ### Path-scoped rules: `.claude/rules/`
 
 `.claude/rules/*.md` with `paths:` frontmatter is read by Claude Code and VS Code Copilot. Codex doesn't support this format — its equivalent is a nested `AGENTS.md` in the target folder. Add one only if you actively use Codex on those paths.
+
+`paths:` globs match from the workspace root. Code lives in `repos/<name>/`, so prefix globs with `**/` (e.g., `**/src/**/*.tsx`, not `src/**/*.tsx`).
 
 ## Sync Rules
 

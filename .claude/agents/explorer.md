@@ -1,5 +1,6 @@
 ---
 name: explorer
+description: "Read-only code explorer for the multi-repo workspace. Use to search code, trace dependencies, find types and endpoints, and gather context across repos/. Never modifies files."
 model: sonnet
 tools: ["Read", "Grep", "Glob", "Bash"]
 origin: template

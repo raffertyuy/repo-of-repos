@@ -2,6 +2,18 @@
 
 All notable changes to the repo-of-repos template. Run `/sync-template` to pull the latest into your workspace.
 
+## 0.6.1
+
+### Fix agents not loading in Claude Code, and frontend rule never matching
+
+- **Agents**: added `description` to `explorer`, `worker`, and `reviewer` frontmatter. Claude Code skips agents without one, so none of the three were registering — the orchestrator fell back to general-purpose agents.
+- **`reviewer`**: dropped `Edit` from its tools to match its read-only role. Review standards are now inlined in `reviewer.md`.
+- **`.claude/prompt-snippets/review-standards.md` removed**: it had only one consumer (`reviewer.md`), which breaks the 2+ consumer rule for snippets.
+- **`.claude/rules/frontend.md`**: `paths` globs changed from `src/**/*` to `**/src/**/*`. The old globs only matched a root-level `src/`, never `repos/<name>/src/`.
+- **Docs**: `docs/cross-tool-sync.md` now notes that agents need `description` and that rule globs need a `**/` prefix. README agents table notes that `explorer` has `Bash` and is read-only by instruction.
+
+**Migration note**: run `/sync-template`. Then delete `.claude/prompt-snippets/review-standards.md` — it has no `origin: template` marker, so removed-file detection won't flag it. If you customized it, move your changes into the `## Review Standards` section of `.claude/agents/reviewer.md`, then re-apply after future syncs (agents are overwritten on sync).
+
 ## 0.6.0
 
 ### Cross-tool compatibility: Claude Code + GitHub Copilot + OpenAI Codex
